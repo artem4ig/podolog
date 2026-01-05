@@ -1,1 +1,636 @@
-google-site-verification: google04f2010996470b75.html
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Професійний подолог в Голованівську: Піщанська Іра. Лікування врослого нігтя, видалення мозолів, натоптишів, медичний педикюр. Стерильно та без болю. ☎️ (095) 514-11-32">
+<meta name="keywords" content="подолог Голованівськ, педикюр Голованівськ, врослий ніготь, лікування грибка, медичний педикюр, Піщанська Іра подолог, мозолі видалення">
+<meta name="robots" content="index, follow">
+<meta name="author" content="Iren Podolog">
+    <title>Подолог Голованівськ | Піщанська Іра</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="img/png" href="logo.png">
+    <style>
+        /* --- 1. ГЛОБАЛЬНЕ СКИДАННЯ ВІДСТУПІВ (Щоб не було білих полів) --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            overflow-x: hidden; /* Прибирає горизонтальну прокрутку */
+            scroll-behavior: smooth; /* Плавний скрол */
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        :root {
+            --primary: #2c3e50;    /* Темно-синій */
+            --secondary: #c5a059;  /* Золотий */
+            --bg-light: #f8f9fa;   /* Світло-сірий */
+            --text-dark: #333;
+            --white: #ffffff;
+            --viber-color: #665cac;
+        }
+
+        body { color: var(--text-dark); line-height: 1.6; }
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        ul { list-style: none; }
+        
+        /* Заголовки */
+        h2.section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 40px;
+            font-weight: 300;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        h2.section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: var(--secondary);
+            margin: 15px auto 0;
+        }
+
+        /* Кнопка */
+        .btn {
+            background: var(--primary);
+            color: var(--white);
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(44, 62, 80, 0.3);
+            transition: 0.3s;
+            display: inline-block;
+            text-align: center;
+        }
+        .btn:hover { background: var(--secondary); transform: translateY(-3px); }
+
+        /* --- 2. ХЕДЕР --- */
+        header {
+            background: var(--white);
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            width: 100%;
+        }
+        .logo { font-size: 1.2rem; font-weight: bold; color: var(--primary); text-transform: uppercase; }
+        .header-contacts { display: flex; align-items: center; }
+        .header-contacts a { margin-left: 15px; font-size: 1.2rem; }
+        .header-contacts a:hover { color: var(--secondary); }
+
+        /* --- 3. HERO (ВІДЕО НА ВЕСЬ ЕКРАН БЕЗ ПОЛІВ) --- */
+        .hero {
+            position: relative;
+            width: 100%;
+            height: 100vh; /* Висота на весь екран */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow: hidden; 
+            padding: 0;
+        }
+
+        .back-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Розтягує відео на весь блок */
+            z-index: -2;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(255, 255, 255, 0.75);
+            z-index: -1;
+        }
+        
+        .hero-content {
+            z-index: 1;
+            padding: 20px;
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .hero h1 { font-size: 3.5rem; color: var(--primary); margin-bottom: 15px; line-height: 1.2; }
+        .hero p { font-size: 1.3rem; color: #333; margin-bottom: 30px; font-weight: 500; }
+        
+        /* --- 4. ПЕРЕВАГИ --- */
+        .features {
+            padding: 60px 5%;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            background: var(--white);
+            position: relative;
+            z-index: 2;
+        }
+        .feature-card {
+            background: var(--white);
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+        .feature-card:hover { transform: translateY(-10px); }
+        .feature-card i { font-size: 2.5rem; color: var(--secondary); margin-bottom: 20px; }
+        .feature-card h3 { margin-bottom: 10px; color: var(--primary); }
+
+        /* --- 5. ПРО ПОДОЛОГА --- */
+        .about { padding: 80px 5%; background: var(--bg-light); }
+        .about-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+            max-width: 1100px;
+            margin: 0 auto;
+            align-items: center;
+        }
+        .about-video-block {
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto;
+            aspect-ratio: 9 / 16;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            border: 5px solid var(--white);
+            background: #000;
+        }
+        .about-video-block video { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .about-text { font-size: 1.15rem; color: #444; text-align: left; }
+        .about-text p { margin-bottom: 20px; }
+        .about-highlight { font-weight: bold; color: var(--secondary); }
+
+        /* --- 6. ПРАЙС --- */
+        .pricing { padding: 80px 5%; background: var(--white); }
+        .price-list { 
+            max-width: 1000px; 
+            margin: 0 auto; 
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+        }
+        .price-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+            background: #fff;
+            transition: 0.2s;
+        }
+        .price-item:hover { background: #f9f9f9; padding-left: 25px; border-left: 3px solid var(--secondary); }
+        .price-name { font-weight: 500; color: var(--primary); width: 65%; }
+        .price-cost { font-weight: bold; color: var(--secondary); text-align: right; width: 35%; }
+
+        /* --- 7. ГАЛЕРЕЯ --- */
+        .gallery-section { padding: 80px 5%; text-align: center; background: #f0f2f5; }
+        #gallery-container {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.8s ease-in-out, opacity 0.8s ease;
+            opacity: 0;
+        }
+        #gallery-container.open { max-height: 3000px; opacity: 1; margin-top: 40px; }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .gallery-item {
+            background: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border: 1px solid #e1e1e1;
+        }
+        .gallery-item:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.15); border-color: var(--secondary); }
+        .gallery-item img { width: 100%; height: 280px; object-fit: cover; border-radius: 4px; background-color: #ddd; }
+        .gallery-item p { margin-top: 15px; padding-top: 10px; font-weight: 500; color: var(--primary); text-transform: uppercase; font-size: 0.9rem; border-top: 1px solid #eee; }
+
+        /* --- 8. ЛОКАЦІЯ --- */
+        .location { padding: 0; display: flex; flex-wrap: wrap; width: 100%; }
+        .map-container { flex: 1; min-width: 300px; height: 450px; background: #eee; }
+        .location-info {
+            flex: 1;
+            min-width: 300px;
+            background: var(--primary);
+            color: var(--white);
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .location-info h3 { margin-bottom: 20px; color: var(--secondary); font-size: 1.5rem; }
+        .contact-row { margin-bottom: 15px; font-size: 1.1rem; display: flex; align-items: center; gap: 10px; }
+
+        /* --- 9. ВІДЖЕТ --- */
+        .floating-widget {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .widget-btn {
+            width: 60px; height: 60px; border-radius: 50%; background: var(--secondary); color: white;
+            display: flex; align-items: center; justify-content: center; font-size: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3); cursor: pointer; animation: pulse 2s infinite;
+        }
+        .widget-socials { display: none; flex-direction: column; gap: 10px; }
+        .widget-socials.active { display: flex; }
+        .social-bubble {
+            width: 50px; height: 50px; border-radius: 50%; background: white;
+            color: var(--primary); display: flex; align-items: center; justify-content: center;
+            font-size: 1.2rem; box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        .social-bubble.tg { color: #0088cc; }
+        .social-bubble.vib { color: #665cac; }
+        .social-bubble.inst { color: #e1306c; }
+        .social-bubble.tt { color: #000000; }
+
+        footer { background: #222; color: #888; padding: 20px; text-align: center; font-size: 0.9rem; width: 100%; }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(197, 160, 89, 0.7); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(197, 160, 89, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(197, 160, 89, 0); }
+        }
+
+        /* --- МОДАЛЬНЕ ВІКНО ВАЙБЕР --- */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 3000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .modal-overlay.active { display: flex; opacity: 1; }
+        .modal-content {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 15px;
+            text-align: center;
+            position: relative;
+            max-width: 450px;
+            width: 100%;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+        .modal-overlay.active .modal-content { transform: translateY(0); }
+        .close-modal {
+            position: absolute;
+            top: 15px; right: 20px; font-size: 28px; color: #aaa; cursor: pointer; transition: 0.3s;
+        }
+        .close-modal:hover { color: var(--primary); }
+        .modal-content h3 { color: var(--primary); margin-bottom: 15px; font-size: 1.5rem; }
+        .modal-content p { margin-bottom: 25px; color: #555; font-size: 1.1rem; }
+        .viber-btn {
+            background-color: var(--viber-color);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 30px;
+            color: white;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .viber-btn:hover { background-color: #524a8a; transform: translateY(-3px); }
+
+        /* --- АДАПТИВНІСТЬ --- */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.2rem; }
+            .hero p { font-size: 1rem; }
+            .features { padding: 40px 5%; }
+            .header-contacts { display: none; }
+            .price-list { grid-template-columns: 1fr; }
+            .location { flex-direction: column; }
+            .map-container, .location-info { min-width: 100%; }
+        }
+        @media (min-width: 769px) {
+             .about-container { grid-template-columns: 1fr 2fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="floating-widget">
+        <div class="widget-socials" id="widgetLinks">
+            <a href="https://t.me/irenpodolog" class="social-bubble tg" target="_blank"><i class="fab fa-telegram-plane"></i></a>
+            <a href="viber://chat?number=%2B380955141132" class="social-bubble vib" target="_blank"><i class="fab fa-viber"></i></a>
+            <a href="https://www.instagram.com/iren.podolog/" class="social-bubble inst" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.tiktok.com/@irenpodolog" class="social-bubble tt" target="_blank"><i class="fab fa-tiktok"></i></a>
+        </div>
+        <div class="widget-btn" onclick="toggleWidget()">
+            <i class="fas fa-comment-dots"></i>
+        </div>
+    </div>
+
+    <div id="viberModal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">×</span>
+            <h3>Запис на прийом</h3>
+            <p>Щоб записатися на сеанс або отримати консультацію, будь ласка, напишіть мені у Viber.</p>
+            <a href="viber://chat?number=%2B380955141132" class="viber-btn">
+                <i class="fab fa-viber"></i> Написати у Viber
+            </a>
+        </div>
+    </div>
+
+    <header>
+        <div class="logo">Піщанська Іра - Подолог</div>
+        <div class="header-contacts">
+            <a href="https://www.instagram.com/iren.podolog/" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.facebook.com/share/1AHsTkhaXz/?mibextid=wwXIfr" target="_blank"><i class="fab fa-facebook"></i></a>
+            <a href="https://www.tiktok.com/@irenpodolog" target="_blank"><i class="fab fa-tiktok"></i></a>
+            <a href="tel:+380955141132"><i class="fas fa-phone"></i> +38 (095) 514-11-32</a>
+        </div>
+    </header>
+
+    <section class="hero">
+        <video autoplay muted loop playsinline class="back-video">
+            <source src="video/bg.mp4" type="video/mp4">
+        </video>
+        <div class="hero-overlay"></div>
+        
+        <div class="hero-content">
+            <h1>Здоров'я ваших ніг</h1>
+            <p>Кваліфікована допомога при захворюваннях стопи та нігтів. Без болю, стерильно, професійно.</p>
+            
+            <a href="#price" class="btn">Дізнатися ціни</a>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="feature-card">
+            <i class="fas fa-pump-medical"></i>
+            <h3>Стерильність 100%</h3>
+            <p>4 етапи обробки інструментів. Крафт-пакет відкривається при вас.</p>
+        </div>
+        <div class="feature-card">
+            <i class="fas fa-user-md"></i>
+            <h3>Досвід</h3>
+            <p>Постійне підвищення кваліфікації.</p>
+        </div>
+        <div class="feature-card">
+            <i class="fas fa-feather-alt"></i>
+            <h3>Без болю</h3>
+            <p>Сучасні методики дозволяють вирішувати проблеми максимально комфортно.</p>
+        </div>
+        <div class="feature-card">
+            <i class="fas fa-clock"></i>
+            <h3>Зручний час</h3>
+            <p>Працюю за записом, без черг та очікувань.</p>
+        </div>
+    </section>
+
+    <section class="about">
+        <h2 class="section-title">Медична подологія в Голованівську</h2>
+        
+        <div class="about-container">
+            <div class="about-video-block">
+                <video autoplay muted loop playsinline>
+                    <source src="video/about-tiktok.mp4" type="video/mp4">
+                    Ваш браузер не підтримує відео.
+                </video>
+            </div>
+
+            <div class="about-text">
+                <p>
+                    Турбують проблеми з вросшим нігтем, втратою нігтьовою пластиною естетичного вигляду через ураження грибком? Маєте хворобливі натоптиші, мозолі різних розмірів, незагоєні тріщини на стопах або синдром діабетичної стопи? 
+                </p>
+                <p>
+                    Вам варто скористатися послугами <span class="about-highlight">кваліфікованого фахівця подолога в Голованівську</span>.
+                </p>
+                <p>
+                    Наш досвідчений майстер подолог подбає про Вас, грамотно проконсультує, надасть кваліфіковану медичну допомогу і безпечно проведе процедуру. Ми повернемо вашим ногам здоров'я та легкість.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="price" class="pricing">
+        <h2 class="section-title">Вартість послуг</h2>
+        <div class="price-list">
+            <div>
+                <div class="price-item">
+                    <span class="price-name">Консультація</span>
+                    <span class="price-cost">200 ₴</span>
+                </div>
+                <div class="price-item">
+                    <span class="price-name">Медичний педикюр</span>
+                    <span class="price-cost">800 - 1200 ₴</span>
+                </div>
+                
+                <div class="price-item">
+                    <span class="price-name">Кератоз (натоптиші)</span>
+                    <span class="price-cost">600 / 800 ₴</span>
+                </div>
+                <div class="price-item">
+                    <span class="price-name">Тріщини</span>
+                    <span class="price-cost">300 / 800 ₴</span>
+                </div>
+                <div class="price-item">
+                    <span class="price-name">Оніхолізис (1 НП)</span>
+                    <span class="price-cost">300 ₴</span>
+                </div>
+                <div class="price-item">
+                    <span class="price-name">Оніхогрифоз (1 НП)</span>
+                    <span class="price-cost">400 / 600 ₴</span>
+                </div>
+                <div class="price-item">
+                    <span class="price-name">Оніхомікоз (всі / 1 НП)</span>
+                    <span class="price-cost">700 / 300 ₴</span>
+                </div>
+                <div class="price-item">
+                    <span class="price-name">Стержневі мозолі (1 шт / наст.)</span>
+                    <span class="price-cost">400 / +100 ₴</span>
+                </div>
+                <div class="price-item">
+                    <span class="price-name">Бородавки (1 шт)</span>
+                    <span class="price-cost">400 ₴</span>
+                </div>
+            </div>
+
+            <div>
+                <div class="price-item">
+                    <span class="price-name">Множинні бородавки</span>
+                    <span class="price-cost">500 / 600 ₴</span>
+                </div>
+                <div class="price-item">
+                    <span class="price-name">Забір матеріалу на МУК</span>
+                    <span class="price-cost">200 ₴</span>
+                </div>
+                <div class="price-item">
+                    <span class="price-name">Врослий ніготь</span>
+                    <span class="price-cost">400 / 700 ₴</span>
+                </div>
+                <div class="price-item">
+                    <span class="price-name">Встановлення Титанової нитки</span>
+                    <span class="price-cost">1100 / 700 ₴</span>
+                </div>
+                <div class="price-item">
+                    <span class="price-name">Скоба Р. Фрезера</span>
+                    <span class="price-cost">1400 / 700 ₴</span>
+                </div>
+                <div class="price-item">
+                    <span class="price-name">Скоба 3ТО</span>
+                    <span class="price-cost">800 ₴</span>
+                </div>
+                <div class="price-item">
+                    <span class="price-name">Протизапальна пов’язка / розгрузка</span>
+                    <span class="price-cost">150 ₴</span>
+                </div>
+                <div class="price-item">
+                    <span class="price-name">Апаратний педикюр покриття гель лак + обробка пальчиків</span>
+                    <span class="price-cost">800 ₴</span>
+                </div>
+                <div class="price-item">
+                    <span class="price-name">Покриття + обробка стопи</span>
+                    <span class="price-cost">700 ₴</span>
+                </div>
+                <div class="price-item">
+                    <span class="price-name">Обробка пальчики / стопа</span>
+                    <span class="price-cost">400 ₴</span>
+                </div>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 40px;">
+            <button class="btn" onclick="openModal()">Записатися на прийом</button>
+        </div>
+    </section>
+
+    <section class="gallery-section">
+        <h2 class="section-title">Мої роботи</h2>
+        <button class="btn" onclick="toggleGallery()" id="galleryBtn" style="background: transparent; border: 2px solid var(--primary); color: var(--primary);">
+            Дивитись фото "До/Після" <i class="fas fa-chevron-down"></i>
+        </button>
+
+        <div id="gallery-container">
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="img/work1.jpg" alt="Робота 1">
+                    <p>Корекція врослого нігтя</p>
+                </div>
+                <div class="gallery-item">
+                    <img src="img/work2.jpg" alt="Робота 2">
+                    <p>Видалення бородавки</p>
+                </div>
+                <div class="gallery-item">
+                    <img src="img/work3.jpg" alt="Робота 3">
+                    <p>Відновлення нігтя</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="location">
+        <div class="map-container">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d632.2854795412569!2d30.456836027520847!3d48.385706470528426!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40ce075a5ae3b1ed%3A0x677747e2720b12e!2z0IbRgNC40L3QsCDQn9C-0LTQvtC70L7QsyDQk9C-0LvQvtCy0LDQvdGW0LLRgdGM0Lo!5e0!3m2!1sru!2sua!4v1767449700047!5m2!1sru!2sua" 
+                width="100%" 
+                height="100%" 
+                style="border:0;" 
+                allowfullscreen="" 
+                loading="lazy">
+            </iframe>
+        </div>
+        <div class="location-info">
+            <h3>Де мене знайти?</h3>
+            <div class="contact-row"><i class="fas fa-map-marker-alt"></i> смт. Голованівськ, вул. Ринкова, 2</div>
+            <div class="contact-row"><i class="fas fa-clock"></i> Вт-Сб: 09:00 - 17:00</div>
+            <div class="contact-row"><i class="fas fa-clock"></i> Нд-Пн: Вихідний</div>
+            <div class="contact-row"><i class="fas fa-phone"></i> +38 (095) 514-11-32</div>
+            <br>
+            <p>Попередній запис обов'язковий!</p>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 Podolog Expert. Всі права захищено.</p>
+    </footer>
+
+    <script>
+        // --- МОДАЛЬНЕ ВІКНО ---
+        const modal = document.getElementById('viberModal');
+
+        function openModal() {
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
+        // --- ГАЛЕРЕЯ ТА ВІДЖЕТ ---
+        function toggleGallery() {
+            const gallery = document.getElementById('gallery-container');
+            const btn = document.getElementById('galleryBtn');
+            gallery.classList.toggle('open');
+            if (gallery.classList.contains('open')) {
+                btn.innerHTML = 'Згорнути <i class="fas fa-chevron-up"></i>';
+            } else {
+                btn.innerHTML = 'Дивитись фото "До/Після" <i class="fas fa-chevron-down"></i>';
+            }
+        }
+
+        function toggleWidget() {
+            document.getElementById('widgetLinks').classList.toggle('active');
+        }
+        
+        // --- СКРОЛЛ НАВЕРХ ---
+        // Якщо в адресі немає #price, то скролимо наверх
+        window.onload = function() {
+            if (window.location.hash !== '#price') {
+                 setTimeout(function() { window.scrollTo(0, 0); }, 10);
+            }
+        };
+    </script>
+</body>
+
+</html> 
+
+
+
+
+
+
