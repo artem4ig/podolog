@@ -1224,14 +1224,17 @@
       }
     }
 
-    /* Mobile-specific gallery tweaks: make gallery stacked and touch-friendly */
+    /* Mobile-specific gallery tweaks: make gallery touch-friendly and use a horizontal thumb strip */
     @media (max-width: 900px) {
+      /* Keep stage full-width and show a horizontal thumbnail scroller below */
       .gallery-row { flex-direction: column; gap: 12px; }
-      .gallery-thumb { width: 100%; height: 140px; position: relative; }
-      .gallery-stage { width: 100%; height: 300px; position: relative; }
-      /* When stacked, card-media should flow (not be absolutely positioned) */
-      .gallery-stage .card-media,
-      .gallery-thumb .card-media { position: relative; inset: auto; transform: none; }
+      .gallery-thumb { display:none; }
+      .gallery-stage { width: 100%; height: 320px; position: relative; }
+      /* Mobile thumbs: horizontal scroller */
+      .mobile-thumbs { display:flex; gap:12px; margin-top:12px; overflow-x:auto; padding:8px 6px; -webkit-overflow-scrolling:touch; }
+      .mobile-thumb { min-width:120px; height:92px; flex:0 0 auto; border-radius:12px; overflow:hidden; border:1px solid rgba(255,255,255,0.06); background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); box-shadow: 0 8px 24px rgba(2,8,12,0.45); transition: transform 240ms cubic-bezier(.2,.9,.2,1), box-shadow 240ms; }
+      .mobile-thumb.active { transform: scale(1.05); box-shadow: 0 18px 40px rgba(12,20,30,0.55); border-color: rgba(255,220,140,0.18); }
+      .mobile-thumb img, .mobile-thumb video { width:100%; height:100%; object-fit:cover; display:block }
       /* Slightly larger controls for touch */
       #galleryPrev, #galleryNext, .btn-ghost { padding: 10px 14px; min-width: 48px; }
       #galleryDots .dot { width: 12px; height: 12px; }
@@ -1239,7 +1242,7 @@
 
     @media (max-width: 560px) {
       .gallery-stage { height: 260px; }
-      .gallery-thumb { height: 120px; }
+      .mobile-thumb { min-width:100px; height:84px; }
       /* Make nav controls easier to tap on small phones */
       #galleryPrev, #galleryNext { min-width: 44px; height: 44px; }
       #galleryDots { gap: 10px; }
@@ -1616,6 +1619,9 @@
           <div class="gallery-thumb" id="thumbNext" aria-hidden="true"></div>
         </div>
 
+        <!-- Mobile-only horizontal thumbnail strip -->
+        <div id="mobileThumbs" class="mobile-thumbs" aria-hidden="true"></div>
+
         <div style="display:flex;align-items:center;justify-content:center;margin-top:12px;gap:12px;">
           <button id="galleryPrev" aria-label="Попереднє" class="btn-ghost" style="min-width:44px"><i class="fas fa-chevron-left"></i></button>
           <div id="galleryDots" style="display:flex;gap:8px;align-items:center"></div>
@@ -1724,9 +1730,10 @@
       const stage = document.getElementById('galleryStage');
       const thumbPrev = document.getElementById('thumbPrev');
       const thumbNext = document.getElementById('thumbNext');
-      const prevBtn = document.getElementById('galleryPrev');
-      const nextBtn = document.getElementById('galleryNext');
-      const dotsWrap = document.getElementById('galleryDots');
+  const prevBtn = document.getElementById('galleryPrev');
+  const nextBtn = document.getElementById('galleryNext');
+  const dotsWrap = document.getElementById('galleryDots');
+  const mobileThumbs = document.getElementById('mobileThumbs');
 
       // Define the media items (order matters)
       const items = [
@@ -1797,6 +1804,26 @@
           b.addEventListener('click', ()=>{ clearTimeout(timeoutId); current=i; update(); });
           dotsWrap.appendChild(b);
         });
+
+        // render mobile horizontal thumbnails (if present)
+        if (mobileThumbs){
+          mobileThumbs.innerHTML = '';
+          items.forEach((itm, i) => {
+            const t = document.createElement('button');
+            t.type = 'button';
+            t.className = i===current ? 'mobile-thumb active' : 'mobile-thumb';
+            // create inner image (use poster for video if available)
+            const thumbImg = document.createElement('img');
+            thumbImg.alt = '';
+            thumbImg.src = itm.type === 'video' ? (itm.poster || itm.src) : itm.src;
+            t.appendChild(thumbImg);
+            t.addEventListener('click', () => { clearTimeout(timeoutId); current = i; update(); });
+            mobileThumbs.appendChild(t);
+          });
+          // ensure active thumb is visible
+          const active = mobileThumbs.querySelector('.mobile-thumb.active');
+          if (active) active.scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'});
+        }
 
         // stop previous video if any
         const prevVideo = stage.querySelector('video');
