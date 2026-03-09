@@ -760,24 +760,29 @@
       font-size: 0.96rem;
     }
 
-  /* Media gallery cards + smooth transitions */
+  /* Simple responsive gallery styles */
   .gallery-cards { max-width: 980px; margin: 0 auto; }
   .gallery-row { align-items: center; }
-  /* make slots positioned so we can cross-fade/slide card-media elements */
-  .gallery-stage { flex: 1 1 640px; min-width: 320px; max-width: 720px; height: 420px; display:flex;align-items:center;justify-content:center; position:relative; overflow:hidden }
-  .gallery-thumb { width: 180px; height: 320px; display:flex;align-items:center;justify-content:center; position:relative; overflow:hidden }
-  .card-media { width:100%; height:100%; overflow:hidden; border-radius:12px; box-shadow: 0 10px 30px rgba(0,0,0,0.4); border:1px solid rgba(255,255,255,0.04); background:#060708; position:absolute; inset:0; display:flex; align-items:center; justify-content:center; }
-  /* animation states */
-  .card-media { transition: opacity 420ms cubic-bezier(.2,.9,.2,1), transform 420ms cubic-bezier(.2,.9,.2,1); opacity:1; transform: translateY(0) scale(1); }
-  .card-media.entering { opacity:0; transform: translateY(8px) scale(0.99); }
-  .card-media.exiting { opacity:0; transform: translateY(-8px) scale(0.98); pointer-events:none; }
-  .stage-card { height:100%; }
-  .thumb-card { height:100%; transform:scale(0.93); }
-  .gallery-row img, .gallery-row video{ width:100%; height:100%; object-fit:cover; display:block }
+  .gallery-stage { width: 100%; max-width: 900px; height: 460px; margin: 0 auto; position: relative; overflow: hidden; border-radius: 14px; }
+  .card-media { width:100%; height:100%; overflow:hidden; border-radius:14px; box-shadow: 0 14px 40px rgba(0,0,0,0.45); border:1px solid rgba(255,255,255,0.04); background:#060708; display:flex; align-items:center; justify-content:center; opacity:0; transform:translateY(6px); transition: opacity 360ms ease, transform 360ms ease; }
+  .card-media.visible { opacity:1; transform:translateY(0); }
+  .card-media img, .card-media video { width:100%; height:100%; object-fit:cover; display:block; border-radius:12px; }
+  .gallery-controls { display:flex; align-items:center; justify-content:center; gap:12px; margin-top:12px; }
   .btn-ghost { background: rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); color:var(--text); padding:8px 12px; border-radius:10px }
-  #galleryDots .dot{ width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,0.25);border:none;opacity:0.8;margin:0 4px }
-  #galleryDots .dot.active{ background:var(--secondary); box-shadow:0 4px 10px rgba(224,180,120,0.18) }
-  @media (max-width:900px){ .gallery-row{flex-direction:column}.gallery-thumb{width:100%;height:160px}.gallery-stage{width:100%;height:320px} }
+  #galleryDots .dot{ width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,0.25);border:none;opacity:0.9;margin:0 6px }
+  #galleryDots .dot.active{ background:var(--secondary); box-shadow:0 6px 18px rgba(224,180,120,0.18) }
+
+  @media (max-width:900px){
+    .gallery-stage { height: 320px; }
+    .card-media { border-radius:12px; }
+    .gallery-controls { gap:10px; }
+  }
+
+  @media (max-width:560px){
+    .gallery-stage { height: 260px; }
+    #galleryDots .dot{ width:12px;height:12px; }
+    .btn-ghost { padding:10px 14px; }
+  }
 
     .location-grid {
       display: grid;
@@ -1725,172 +1730,70 @@
 
         revealElements.forEach(el => observer.observe(el));
 
-    // --- Robust media gallery: responsive, touch-friendly, smooth transitions ---
+    // --- Simple robust gallery (single-stage, prev/next, dots, swipe) ---
     (function(){
-      const gallery = document.getElementById('media-gallery');
-      if (!gallery) return;
       const stage = document.getElementById('galleryStage');
-      const thumbPrev = document.getElementById('thumbPrev');
-      const thumbNext = document.getElementById('thumbNext');
       const prevBtn = document.getElementById('galleryPrev');
       const nextBtn = document.getElementById('galleryNext');
       const dotsWrap = document.getElementById('galleryDots');
-      const mobileThumbs = document.getElementById('mobileThumbs');
 
-      const AUTOPLAY_IMAGE_MS = 5000;
-
-      // media items (edit paths as needed)
       const items = [
         { type: 'video', src: 'media/about-me.mp4', poster: 'media/about-me.jpg' },
         { type: 'image', src: 'media/about-me.jpg' },
-        { type: 'image', src: 'media/about-me-2.jpg' },
+        { type: 'image', src: 'media/about-me-2.jpg' }
       ];
 
       let current = 0;
-      let autoplayTimer = null;
-      let interacting = false; // mouse/touch interaction pause
+      let timer = null;
 
-      function clearAutoplay(){ if (autoplayTimer) { clearTimeout(autoplayTimer); autoplayTimer = null; } }
-      function startAutoplay(){ clearAutoplay(); if (items[current].type === 'image') autoplayTimer = setTimeout(()=> go(1), AUTOPLAY_IMAGE_MS); }
+      function clearTimer(){ if (timer) { clearTimeout(timer); timer = null; } }
+      function schedule(){ clearTimer(); if (items[current].type === 'image') timer = setTimeout(()=> next(), 5000); }
 
-      // create media element for a slot
-      function makeMediaElement(item, opts={small:false}){
+      function render(){
+        if (!stage) return;
+        const item = items[current];
         const wrapper = document.createElement('div');
-        wrapper.className = 'card-media ' + (opts.small ? 'thumb-card' : 'stage-card');
-        wrapper.style.position = opts.containerRelative ? 'relative' : 'absolute';
+        wrapper.className = 'card-media stage-card';
 
         if (item.type === 'video'){
           const v = document.createElement('video');
-          v.muted = true;
-          v.playsInline = true;
-          if (!opts.small) { v.controls = true; v.setAttribute('playsinline', ''); }
-          if (item.poster) v.poster = item.poster;
-          v.style.width = '100%'; v.style.height = '100%'; v.style.objectFit = 'cover'; v.style.borderRadius = '10px';
-          const s = document.createElement('source'); s.src = item.src; s.type = 'video/mp4';
-          v.appendChild(s);
+          v.src = item.src; if (item.poster) v.poster = item.poster;
+          v.muted = true; v.controls = true; v.playsInline = true;
+          v.style.width = '100%'; v.style.height = '100%'; v.style.objectFit = 'cover';
+          v.onended = () => next();
           wrapper.appendChild(v);
+          // play if possible
+          setTimeout(()=> v.play().catch(()=>{}), 50);
         } else {
           const img = document.createElement('img');
           img.src = item.src; img.alt = '';
-          img.style.width = '100%'; img.style.height = '100%'; img.style.objectFit = 'cover'; img.style.borderRadius = '10px';
           wrapper.appendChild(img);
         }
-        return wrapper;
+
+        // replace content with fade
+        const old = stage.querySelector('.card-media');
+        stage.appendChild(wrapper);
+        requestAnimationFrame(()=> wrapper.classList.add('visible'));
+        if (old){ old.classList.remove('visible'); old.addEventListener('transitionend', ()=> old.remove(), {once:true}); }
+
+        // dots
+        if (dotsWrap){ dotsWrap.innerHTML = ''; items.forEach((it,i)=>{ const b = document.createElement('button'); b.className = i===current ? 'dot active' : 'dot'; b.addEventListener('click', ()=> goto(i)); dotsWrap.appendChild(b); }); }
+
+        clearTimer(); schedule();
       }
 
-      // gracefully replace content in a container with animated enter/exit
-      function replaceAnimated(container, newEl){
-        if (!container) return;
-        const old = container.querySelector('.card-media');
-        if (newEl){
-          newEl.classList.add('entering');
-          // if container has position:relative (mobile), keep child position:relative
-          if (getComputedStyle(container).position === 'relative') newEl.style.position = 'relative';
-          container.appendChild(newEl);
-          // force frame then remove entering class
-          requestAnimationFrame(()=> newEl.classList.remove('entering'));
-        }
-        if (old){
-          old.classList.add('exiting');
-          old.addEventListener('transitionend', ()=> { try{ old.remove(); }catch(e){} }, {once:true});
-        }
-      }
+      function goto(i){ current = (i + items.length) % items.length; render(); }
+      function prev(){ goto(current - 1); }
+      function next(){ goto(current + 1); }
 
-      // render helpers
-      function renderStage(){
-        const el = makeMediaElement(items[current], {small:false});
-        replaceAnimated(stage, el);
+      prevBtn && prevBtn.addEventListener('click', ()=>{ prev(); });
+      nextBtn && nextBtn.addEventListener('click', ()=>{ next(); });
 
-        // start video if present
-        setTimeout(()=>{
-          const v = stage.querySelector('video');
-          if (v){ v.muted = true; v.play().catch(()=>{}); v.onended = () => go(1); }
-        }, 50);
-      }
+      // simple swipe support
+      (function(){ let startX = 0; let dx = 0; stage && stage.addEventListener('touchstart', e=>{ startX = e.touches[0].clientX; clearTimer(); }, {passive:true}); stage && stage.addEventListener('touchmove', e=>{ dx = e.touches[0].clientX - startX; }, {passive:true}); stage && stage.addEventListener('touchend', ()=>{ if (dx > 40) prev(); else if (dx < -40) next(); schedule(); dx = 0; }, {passive:true}); })();
 
-      function renderSideThumbs(){
-        if (thumbPrev && thumbNext){
-          const prevIdx = (current - 1 + items.length) % items.length;
-          const nextIdx = (current + 1) % items.length;
-          replaceAnimated(thumbPrev, makeMediaElement(items[prevIdx], {small:true}));
-          replaceAnimated(thumbNext, makeMediaElement(items[nextIdx], {small:true}));
-        }
-      }
-
-      function renderDots(){
-        if (!dotsWrap) return;
-        dotsWrap.innerHTML = '';
-        items.forEach((it,i)=>{
-          const b = document.createElement('button');
-          b.className = i===current ? 'dot active' : 'dot';
-          b.setAttribute('aria-label', `Перейти до слайду ${i+1}`);
-          b.addEventListener('click', ()=>{ interacting = true; clearAutoplay(); current = i; update(); setTimeout(()=>{ interacting = false; startAutoplay(); }, 600); });
-          dotsWrap.appendChild(b);
-        });
-      }
-
-      function renderMobileThumbs(){
-        if (!mobileThumbs) return;
-        mobileThumbs.innerHTML = '';
-        items.forEach((it,i)=>{
-          const btn = document.createElement('button');
-          btn.type = 'button';
-          btn.className = 'mobile-thumb' + (i===current ? ' active' : '');
-          const img = document.createElement('img');
-          img.src = it.type === 'video' ? (it.poster || it.src) : it.src;
-          img.alt = '';
-          btn.appendChild(img);
-          btn.addEventListener('click', ()=>{ interacting=true; clearAutoplay(); current = i; update(); setTimeout(()=>{ interacting=false; startAutoplay(); }, 500); });
-          mobileThumbs.appendChild(btn);
-        });
-
-        // only scroll into view on mobile viewport
-        const active = mobileThumbs.querySelector('.mobile-thumb.active');
-        const mobileVisible = window.innerWidth <= 900 && getComputedStyle(mobileThumbs).display !== 'none';
-        if (active && mobileVisible){ try{ active.scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'}); }catch(e){} }
-      }
-
-      function update(){
-        renderStage();
-        renderSideThumbs();
-        renderDots();
-        renderMobileThumbs();
-        clearAutoplay();
-        if (!interacting) startAutoplay();
-      }
-
-      function go(dir){
-        clearAutoplay();
-        current = (current + dir + items.length) % items.length;
-        update();
-      }
-
-      // controls
-      prevBtn && prevBtn.addEventListener('click', ()=>{ interacting=true; go(-1); setTimeout(()=>{ interacting=false; startAutoplay(); }, 500); });
-      nextBtn && nextBtn.addEventListener('click', ()=>{ interacting=true; go(1); setTimeout(()=>{ interacting=false; startAutoplay(); }, 500); });
-
-      // pause on hover (desktop) and on touchstart (mobile)
-      [stage, thumbPrev, thumbNext, mobileThumbs].forEach(el=>{
-        if (!el) return;
-        el.addEventListener('mouseenter', ()=>{ interacting=true; clearAutoplay(); });
-        el.addEventListener('mouseleave', ()=>{ interacting=false; startAutoplay(); });
-        el.addEventListener('touchstart', ()=>{ interacting=true; clearAutoplay(); }, {passive:true});
-        el.addEventListener('touchend', ()=>{ interacting=false; startAutoplay(); });
-      });
-
-      // basic swipe support on stage
-      (function addSwipe(){
-        let startX = 0; let dx = 0; let touching = false;
-        stage.addEventListener('touchstart', (e)=>{ if (!e.touches) return; touching=true; startX = e.touches[0].clientX; dx = 0; clearAutoplay(); }, {passive:true});
-        stage.addEventListener('touchmove', (e)=>{ if (!touching || !e.touches) return; dx = e.touches[0].clientX - startX; }, {passive:true});
-        stage.addEventListener('touchend', ()=>{ touching=false; const threshold = 40; if (dx > threshold) go(-1); else if (dx < -threshold) go(1); startAutoplay(); dx = 0; }, {passive:true});
-      })();
-
-      // keyboard nav
-      window.addEventListener('keydown', (e)=>{ if (e.key === 'ArrowLeft') { go(-1); } else if (e.key === 'ArrowRight') { go(1); } });
-
-      // initial render
-      update();
+      // initial
+      render();
     })();
     </script>
 </body>
