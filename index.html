@@ -1822,9 +1822,14 @@
             t.addEventListener('click', () => { clearTimeout(timeoutId); current = i; update(); });
             mobileThumbs.appendChild(t);
           });
-          // ensure active thumb is visible
+          // ensure active thumb is visible (only when mobile thumbs are visible)
           const active = mobileThumbs.querySelector('.mobile-thumb.active');
-          if (active) active.scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'});
+          if (active) {
+            const mobileVisible = window.innerWidth <= 900 && getComputedStyle(mobileThumbs).display !== 'none';
+            if (mobileVisible) {
+              try { active.scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'}); } catch(e) { /* ignore */ }
+            }
+          }
         }
 
         // stop previous video if any
