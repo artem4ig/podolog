@@ -650,23 +650,20 @@
       color: var(--secondary);
     }
 
-    .price-layout {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 18px;
-    }
+    /* Видалено .price-layout для одноколонкового макету */
 
     .price-card {
       border-radius: 30px;
-      padding: 22px;
+      padding: 34px;
       position: relative;
       overflow: hidden;
       transition: transform 0.3s ease, background 0.3s ease, border-color 0.3s ease;
     }
 
     .price-card h3 {
-      margin-bottom: 16px;
-      font-size: 1.15rem;
+      margin-bottom: 20px;
+      font-size: 1.3rem;
+      color: var(--secondary);
     }
 
     .price-list {
@@ -704,7 +701,7 @@
     .price-actions {
       display: flex;
       justify-content: center;
-      margin-top: 28px;
+      margin-top: 36px;
     }
 
     .gallery-shell {
@@ -1093,7 +1090,6 @@
       }
 
       .hero-badges,
-      .price-layout,
       .gallery-grid,
       .features-grid {
         grid-template-columns: 1fr;
@@ -1213,6 +1209,10 @@
 
       .footer-shell {
         padding: 16px;
+      }
+      
+      .price-card {
+        padding: 24px 18px;
       }
     }
 
@@ -1479,16 +1479,16 @@
 
     <section class="section" id="price">
       <div class="container">
-        <div class="section-head reveal">
-          <div>
+        <div class="section-head reveal" style="justify-content: center; text-align: center;">
+          <div style="width: 100%;">
             <div class="eyebrow"><i class="fas fa-wallet"></i> Прайс</div>
-            <h2 class="title">Вартість послуг</h2>
+            <h2 class="title" style="margin: 0 auto;">Вартість послуг</h2>
           </div>
-          
         </div>
 
-        <div class="price-layout">
+        <div style="max-width: 800px; margin: 0 auto;">
           <div class="price-card reveal">
+            
             <h3>Основні послуги</h3>
             <div class="price-list">
               <div class="price-item"><span class="price-name">Консультація</span><span class="price-cost">200 ₴</span></div>
@@ -1501,10 +1501,8 @@
               <div class="price-item"><span class="price-name">Стержневі мозолі (1 шт / наст.)</span><span class="price-cost">400 / +100 ₴</span></div>
               <div class="price-item"><span class="price-name">Бородавки (1 шт)</span><span class="price-cost">400 ₴</span></div>
             </div>
-          </div>
 
-          <div class="price-card reveal">
-            <h3>Корекція та додаткові послуги</h3>
+            <h3 style="margin-top: 48px;">Корекція та додаткові послуги</h3>
             <div class="price-list">
               <div class="price-item"><span class="price-name">Множинні бородавки</span><span class="price-cost">500 / 600 ₴</span></div>
               <div class="price-item"><span class="price-name">Врослий ніготь</span><span class="price-cost">500 / 800 ₴</span></div>
@@ -1515,24 +1513,25 @@
               <div class="price-item"><span class="price-name">Апаратний педикюр + гель-лак + обробка пальчиків</span><span class="price-cost">800 ₴</span></div>
               <div class="price-item"><span class="price-name">Обробка пальчики / стопа</span><span class="price-cost">500 ₴</span></div>
               
-              <div class="price-item" style="border-top: 1px solid rgba(255,255,255,0.08); margin-top: 8px; padding-top: 22px;">
-                <span class="price-name" style="color: var(--primary); font-size: 1.05rem;">Іонофорез (лікування пітливості)</span>
+              <div class="price-item" style="border-bottom: none; padding-bottom: 4px; padding-top: 24px;">
+                <span class="price-name" style="color: var(--primary); font-size: 1.05rem; font-weight: 700;">Іонофорез (лікування пітливості)</span>
               </div>
-              <div class="price-item">
+              <div class="price-item" style="border-bottom: none; padding-top: 4px; padding-bottom: 4px;">
                 <span class="price-name" style="padding-left: 16px; opacity: 0.85;">— Долоні</span>
                 <span class="price-cost">400 ₴</span>
               </div>
-              <div class="price-item">
+              <div class="price-item" style="border-bottom: none; padding-top: 4px; padding-bottom: 4px;">
                 <span class="price-name" style="padding-left: 16px; opacity: 0.85;">— Стопи</span>
                 <span class="price-cost">400 ₴</span>
               </div>
-              <div class="price-item">
+              <div class="price-item" style="padding-top: 4px; margin-bottom: 8px;">
                 <span class="price-name" style="padding-left: 16px; opacity: 0.85;">— Долоні + стопи</span>
                 <span class="price-cost">600 ₴</span>
               </div>
               
               <div class="price-item"><span class="price-name">Забір матеріалу на МУК</span><span class="price-cost">200 ₴</span></div>
             </div>
+
           </div>
         </div>
 
